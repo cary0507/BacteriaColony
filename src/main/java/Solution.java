@@ -47,15 +47,15 @@ public class Solution {
         return array;
     }
 
-    public static int DFS(boolean[][] slide, int row, int col, int sum) {
+    public static void DFS(boolean[][] slide, int row, int col) {
         if (!slide[row][col]) {  // Does not contain bacteria
-            return sum;
+            return;
         }
-        sum++;
         for (int[] dir : DIRECT) {
             int nextR = row + dir[0];
             int nextC = col + dir[1];
-            return DFS(slide, nextR, nextC, sum);
+            slide[nextR][nextC] = false;  // Mark as visited
+            DFS(slide, nextR, nextC);
         }
     }
 
