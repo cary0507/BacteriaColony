@@ -3,6 +3,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Solution {
+    static int sum = 0;
     static final int[][] DIRECT = new int[][]{
             {0, 1},     // Right
             {1, 0},     // Up
@@ -41,30 +42,32 @@ public class Solution {
                 for (int j = 0; j < cols; j++) {
                     char nextChar = nextLine.charAt(j);
                     array[i][j] = (nextChar == '*');  // * is bacteria
+                    // if (array[i][j]) System.out.println(i + " " + j + " " + nextLine);
                 }
             }
         }
         return array;
     }
 
-    public static int DFS(boolean[][] slide, int row, int col, int sum) {
+    public static void DFS(boolean[][] slide, int row, int col) {
         if (!slide[row][col]) {  // Does not contain bacteria
-            return 0;
+            return;
         }
         sum++;  // Contains bacteria
+        slide[row][col] = false;  // Mark as visited
+        // System.out.println(row + " " + col);
         for (int[] dir : DIRECT) {
             int nextR = row + dir[0];
             int nextC = col + dir[1];
-            slide[nextR][nextC] = false;  // Mark as visited
-            return sum + DFS(slide, nextR, nextC, sum);
+            DFS(slide, nextR, nextC);
         }
-        return sum;
     }
 
     public static void main(String[] args) {
         boolean[][] array = readInput("src/main/resources/DATA_50x50.txt");
         // Print the array to verify it was read correctly
-        // printArray(array);
-
+        printArray(array);
+        DFS(array, 2, 31);
+        System.out.println(sum);
     }
 }
