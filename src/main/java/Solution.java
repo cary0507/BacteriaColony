@@ -47,16 +47,18 @@ public class Solution {
         return array;
     }
 
-    public static void DFS(boolean[][] slide, int row, int col) {
+    public static int DFS(boolean[][] slide, int row, int col, int sum) {
         if (!slide[row][col]) {  // Does not contain bacteria
-            return;
+            return 0;
         }
+        sum++;  // Contains bacteria
         for (int[] dir : DIRECT) {
             int nextR = row + dir[0];
             int nextC = col + dir[1];
             slide[nextR][nextC] = false;  // Mark as visited
-            DFS(slide, nextR, nextC);
+            return sum + DFS(slide, nextR, nextC, sum);
         }
+        return sum;
     }
 
     public static void main(String[] args) {
