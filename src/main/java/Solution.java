@@ -59,15 +59,25 @@ public class Solution {
         for (int[] dir : DIRECT) {
             int nextR = row + dir[0];
             int nextC = col + dir[1];
-            DFS(slide, nextR, nextC);
+            // Inside bounds
+            if (nextR >= 0 && nextR < slide.length)
+                if (nextC >= 0 && nextC < slide[0].length)
+                    DFS(slide, nextR, nextC);
         }
     }
 
     public static void main(String[] args) {
         boolean[][] array = readInput("src/main/resources/DATA_50x50.txt");
         // Print the array to verify it was read correctly
-        printArray(array);
-        DFS(array, 2, 31);
-        System.out.println(sum);
+        //printArray(array);
+        for (int row = 0; row < array.length; row++) {
+            for (int col = 0; col < array[0].length; col++) {
+                sum = 0;
+                if (array[row][col]) {
+                    DFS(array, row, col);
+                    System.out.println("Colony at (" + row + "," + col + ") with size " + sum);
+                }
+            }
+        }
     }
 }
