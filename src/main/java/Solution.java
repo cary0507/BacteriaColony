@@ -1,9 +1,14 @@
+/*
+* Author: Cary
+* */
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Solution {
     static int sum = 0;
+    // Directions
     static final int[][] DIRECT = new int[][]{
             {0, 1},     // Right
             {1, 0},     // Up
